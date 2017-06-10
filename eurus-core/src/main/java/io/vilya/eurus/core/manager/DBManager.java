@@ -17,10 +17,13 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
+import io.vilya.eurus.core.annotation.Manager;
+
 /**
  * @author iamaprin
  * @time 2017年6月9日 下午10:12:49
  */
+@Manager
 public class DBManager implements IManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DBManager.class);
@@ -59,7 +62,7 @@ public class DBManager implements IManager {
      */
     private void initDataSource() throws SQLException {
         dataSource = new DruidDataSource();
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/DB_VY_CORE");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/DB_VY_CORE?serverTimezone=UTC&characterEncoding=utf-8");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
         dataSource.setMinIdle(1);

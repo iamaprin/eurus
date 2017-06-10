@@ -4,58 +4,55 @@
 	<parent>
 		<groupId>io.vilya</groupId>
 		<artifactId>eurus</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>${project.version}</version>
 	</parent>
 	<artifactId>eurus-core</artifactId>
 	<packaging>war</packaging>
 
 	<dependencies>
-	   <!-- servlet -->
-	   <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>3.1.0</version>
-		    <scope>provided</scope>
+		<dependency>
+			<groupId>io.vilya</groupId>
+			<artifactId>eurus-common</artifactId>
 		</dependency>
-	
-        <!-- jersey -->
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+
+		<!-- jersey -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.25.1</version>
 		</dependency>
 
 		<!-- log -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
 		</dependency>
-		
+
 		<!-- db -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>druid</artifactId>
-		    <version>1.0.31</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>6.0.6</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>com.ibeetl</groupId>
-		    <artifactId>beetlsql</artifactId>
-		    <version>2.8.17</version>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetlsql</artifactId>
 		</dependency>
-		
+
 		<!-- commons -->
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>3.5</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 

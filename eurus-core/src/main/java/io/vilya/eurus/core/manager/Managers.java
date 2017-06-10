@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.vilya.eurus.common.utils.PackageScanner;
+
 /**
  * @author iamaprin
  * @time 2017年6月9日 下午10:36:14
@@ -19,6 +21,8 @@ public enum Managers implements IManager {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(Managers.class);
     
+    private static final String MANAGER_PACKAGE = "io.vilya.eurus.core.manager";
+    
     private Map<Class<?>, IManager> instances;
     
     Managers() {
@@ -27,7 +31,9 @@ public enum Managers implements IManager {
     
     @Override
     public void startup() {
-        Class<?>[] managers = {DBManager.class};
+        List<Class<?>> managers = PackageScanner.scan(Thread.currentThread().getContextClassLoader(), 
+                MANAGER_PACKAGE, new ManagerClassFilter());
+        
         IManager instance;
         for (Class<?> manager : managers) {
             if (!IManager.class.isAssignableFrom(manager)) {
