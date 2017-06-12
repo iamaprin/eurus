@@ -16,11 +16,12 @@ public class EurusResponseFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
             throws IOException {
-        addPoweredBy(responseContext);
+        addResponseHeader(responseContext);
     }
     
-    private void addPoweredBy(ContainerResponseContext responseContext) {
+    private void addResponseHeader(ContainerResponseContext responseContext) {
         addResponseHeader(responseContext, "X-Powered-By", "Jersey");
+        addResponseHeader(responseContext, "Content-Encoding", "gzip");
     }
     
     private void addResponseHeader(ContainerResponseContext responseContext, String key, String value) {

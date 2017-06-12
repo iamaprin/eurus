@@ -18,6 +18,7 @@ public class AccountController {
     @GET
     public String account() {
         LOGGER.info("123");
+                
         return "123";
     }
 }

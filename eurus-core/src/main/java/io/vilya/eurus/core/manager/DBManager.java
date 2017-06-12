@@ -4,42 +4,37 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.StringUtils;
-import org.beetl.sql.core.ClasspathLoader;
-import org.beetl.sql.core.ConnectionSource;
-import org.beetl.sql.core.ConnectionSourceHelper;
-import org.beetl.sql.core.SQLLoader;
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.db.DBStyle;
-import org.beetl.sql.core.db.MySqlStyle;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.pool.DruidDataSource;
-
 import io.vilya.eurus.core.annotation.Manager;
+import io.vilya.eurus.core.constant.EurusConstants;
 
 /**
  * @author iamaprin
  * @time 2017年6月9日 下午10:12:49
  */
 @Manager
-public class DBManager implements IManager {
+public class DBManager implements IManager, IDBManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DBManager.class);
     
     private DruidDataSource dataSource;
     
-    private SQLManager sqlManager;
+    private DSLContext create;
     
     @Override
     public void startup() {
         try {
             initDataSource();
-            initBeetlSQL();
+            initJOOQ();
             LOGGER.info("db inited.");
         } catch (SQLException e) {
-            LOGGER.error(StringUtils.EMPTY, e);
+            LOGGER.error(EurusConstants.EMPTY_STRING, e);
         }
     }
 
@@ -48,12 +43,14 @@ public class DBManager implements IManager {
         closeDataSource();
     }
     
+    @Override
     public DataSource getDataSource() {
         return dataSource;
     }
     
-    public SQLManager getSQLManager() {
-        return sqlManager;
+    @Override
+    public DSLContext getCreate() {
+        return create;
     }
     
     /**
@@ -63,18 +60,15 @@ public class DBManager implements IManager {
     private void initDataSource() throws SQLException {
         dataSource = new DruidDataSource();
         dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/DB_VY_CORE?serverTimezone=UTC&characterEncoding=utf-8");
-        dataSource.setUsername("root");
+        dataSource.setUsername("eurus");
         dataSource.setPassword("123456");
         dataSource.setMinIdle(1);
         dataSource.setMaxActive(5);
         dataSource.init();
     }
     
-    private void initBeetlSQL() {
-        ConnectionSource source = ConnectionSourceHelper.getSingle(dataSource);
-        DBStyle style = new MySqlStyle();
-        SQLLoader loader = new ClasspathLoader("/sql");
-        sqlManager = new SQLManager(style, loader, source);
+    private void initJOOQ() {
+        create = DSL.using(dataSource, SQLDialect.MYSQL);
     }
     
     private void closeDataSource() {
