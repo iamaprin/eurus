@@ -1,7 +1,7 @@
 package io.vilya.eurus.core.manager;
 
 import io.vilya.eurus.common.utils.ClassFilter;
-import io.vilya.eurus.core.annotation.Manager;
+import io.vilya.eurus.core.common.annotation.Manager;
 
 /**
  * @author iamaprin

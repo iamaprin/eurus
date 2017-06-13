@@ -9,3 +9,5 @@ eurus-core/.settings/org.eclipse.wst.common.project.facet.core.xml
 eurus-core/.settings/org.eclipse.wst.jsdt.ui.superType.container
 eurus-core/.settings/org.eclipse.wst.jsdt.ui.superType.name
 eurus-core/src/main/resources/rebel.xml
+eurus-common/.classpath
+eurus-common/.settings/org.eclipse.wst.common.project.facet.core.xml

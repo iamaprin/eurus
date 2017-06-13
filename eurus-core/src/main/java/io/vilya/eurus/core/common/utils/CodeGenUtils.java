@@ -1,4 +1,4 @@
-package io.vilya.eurus.core.utils;
+package io.vilya.eurus.core.common.utils;
 
 import java.util.ArrayList;
 import java.util.List;

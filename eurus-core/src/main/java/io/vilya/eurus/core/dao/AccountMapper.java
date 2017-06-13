@@ -18,25 +18,25 @@ public class AccountMapper extends AbstractMapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountMapper.class);
     
-    public boolean save(AccountRecord record) {
+    public int save(AccountRecord record) {
         return create
                 .insertInto(Account.ACCOUNT)
                 .set(record)
-                .execute() > 0;
+                .execute();
     }
     
-    public boolean remove(int id) {
+    public int remove(int id) {
         return create
                 .deleteFrom(Account.ACCOUNT)
                 .where(Account.ACCOUNT.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
     
-    public boolean update(AccountRecord record) {
+    public int update(AccountRecord record) {
         return create
                 .update(Account.ACCOUNT)
                 .set(record)
-                .execute() > 0;
+                .execute();
     }
 
     public List<AccountRecord> list() {

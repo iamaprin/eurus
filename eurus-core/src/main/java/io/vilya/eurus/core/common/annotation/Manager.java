@@ -1,4 +1,4 @@
-package io.vilya.eurus.core.annotation;
+package io.vilya.eurus.core.common.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

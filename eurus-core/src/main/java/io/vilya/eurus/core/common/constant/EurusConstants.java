@@ -1,4 +1,4 @@
-package io.vilya.eurus.core.constant;
+package io.vilya.eurus.core.common.constant;
 
 /**
  * @author iamaprin

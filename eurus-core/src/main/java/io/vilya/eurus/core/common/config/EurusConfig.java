@@ -1,7 +1,7 @@
-package io.vilya.eurus.core.config;
+package io.vilya.eurus.core.common.config;
 
 import javax.ws.rs.ApplicationPath;
-
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +24,7 @@ public class EurusConfig extends ResourceConfig {
         
         registerFilter();
         registerInterceptor();
+        registerComponent();
         
         LOGGER.info("jersey started.");
     }
@@ -37,4 +38,9 @@ public class EurusConfig extends ResourceConfig {
         register(EurusWriterInterceptor.class);
     }
     
+    private void registerComponent() {
+        register(JacksonFeature.class);
+        register(EurusObjectMapperProvider.class);
+        register(EurusExceptionMapper.class);
+    }
 }

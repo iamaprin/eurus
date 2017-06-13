@@ -7,6 +7,7 @@ package io.vilya.eurus.core.entity.tables.records;
 import java.sql.Date;
 
 import javax.annotation.Generated;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jooq.Field;
 import org.jooq.Record1;
