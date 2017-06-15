@@ -15,13 +15,21 @@ public class EurusException extends RuntimeException {
         this(ResultCode.ERROR);
     }
     
+    public EurusException(final Throwable e) {
+        this(ResultCode.ERROR, e);
+    }
+    
     public EurusException(final ResultCode code) {
-        super(code.getHttpReason());
+        this(code, null);
+    }
+    
+    public EurusException(final ResultCode code, final Throwable e) {
+        super(e);
         this.code = code;
     }
     
-    public EurusException(final ResultCode code, final String message) {
-        super(message);
+    public EurusException(final ResultCode code, final String message, final Throwable e) {
+        super(message, e);
         this.code = code;
     }
 

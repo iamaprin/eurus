@@ -18,6 +18,7 @@ import io.vilya.eurus.core.bean.AccountResp;
 import io.vilya.eurus.core.common.json.APIListJson;
 import io.vilya.eurus.core.common.json.APIObjectJson;
 import io.vilya.eurus.core.common.json.APIRespJson;
+import io.vilya.eurus.core.common.json.ResultCode;
 import io.vilya.eurus.core.service.impl.AccountServiceImpl;
 
 /**
@@ -45,10 +46,15 @@ public class AccountController {
     
     @PUT
     public APIRespJson update(@BeanParam AccountResp account) {
-        AccountServiceImpl.INSTANCE.update(account);
-        return new APIRespJson();
+        boolean result = AccountServiceImpl.INSTANCE.update(account);
+        return new APIRespJson(result ? ResultCode.SUCC : ResultCode.FAIL);
     }
     
+    @POST
+    public APIRespJson add(@BeanParam AccountResp account) {
+        boolean result = AccountServiceImpl.INSTANCE.save(account);
+        return new APIRespJson(result ? ResultCode.SUCC : ResultCode.FAIL);
+    }
     
     
     

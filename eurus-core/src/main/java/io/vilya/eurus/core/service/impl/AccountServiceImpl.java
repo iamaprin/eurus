@@ -11,6 +11,8 @@ import io.vilya.eurus.core.common.utils.AssertUtils;
 import io.vilya.eurus.core.common.utils.BeanUtilsWrapper;
 import io.vilya.eurus.core.dao.AccountMapper;
 import io.vilya.eurus.core.entity.tables.records.AccountRecord;
+import io.vilya.eurus.core.exception.BeanCopyException;
+import io.vilya.eurus.core.exception.DAOException;
 import io.vilya.eurus.core.exception.EurusException;
 import io.vilya.eurus.core.service.IAccountService;
 
@@ -26,8 +28,19 @@ public enum AccountServiceImpl implements IAccountService {
     private AccountMapper accountMapper = new AccountMapper();
     
     @Override
-    public boolean save(AccountRecord record) {
-        return accountMapper.save(record) > 0;
+    public boolean save(AccountResp account) {
+        AssertUtils.notNull(account);
+        
+        AccountRecord record = new AccountRecord();
+        BeanUtilsWrapper.copyProperties(record, account);
+        
+        int rows;
+        try {
+            rows = accountMapper.save(record);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return rows > 0;
     }
 
     @Override

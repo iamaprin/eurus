@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response.Status;
  */
 public enum ResultCode {
     
+    FAIL(-1, Status.INTERNAL_SERVER_ERROR),
+    
     SUCC(0, Status.OK),
     
     ERROR(1000, Status.INTERNAL_SERVER_ERROR),
