@@ -2,7 +2,11 @@ package io.vilya.eurus.core.api;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -38,4 +42,18 @@ public class AccountController {
         List<AccountResp> accounts = AccountServiceImpl.INSTANCE.list();
         return new APIListJson<>(accounts);
     }
+    
+    @PUT
+    public APIRespJson update(@BeanParam AccountResp account) {
+        AccountServiceImpl.INSTANCE.update(account);
+        return new APIRespJson();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

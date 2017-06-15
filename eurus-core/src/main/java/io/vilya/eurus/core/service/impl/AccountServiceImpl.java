@@ -3,8 +3,11 @@ package io.vilya.eurus.core.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import io.vilya.eurus.core.bean.AccountResp;
 import io.vilya.eurus.core.common.json.ResultCode;
+import io.vilya.eurus.core.common.utils.AssertUtils;
 import io.vilya.eurus.core.common.utils.BeanUtilsWrapper;
 import io.vilya.eurus.core.dao.AccountMapper;
 import io.vilya.eurus.core.entity.tables.records.AccountRecord;
@@ -33,7 +36,11 @@ public enum AccountServiceImpl implements IAccountService {
     }
     
     @Override
-    public boolean update(AccountRecord record) {
+    public boolean update(AccountResp account) {
+        AssertUtils.notNull(account);
+        
+        AccountRecord record = new AccountRecord();
+        BeanUtilsWrapper.copyProperties(record, account);
         return accountMapper.update(record) > 0;
     }
     

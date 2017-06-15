@@ -15,7 +15,7 @@ public interface IAccountService {
     
     AccountResp get(int id);
     
-    boolean update(AccountRecord record);
+    boolean update(AccountResp record);
     
     boolean save(AccountRecord record);
     

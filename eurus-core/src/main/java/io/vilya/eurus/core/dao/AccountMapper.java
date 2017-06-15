@@ -1,12 +1,14 @@
 package io.vilya.eurus.core.dao;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
+import org.jooq.UpdateSetMoreStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vilya.eurus.core.entity.tables.Account;
-import io.vilya.eurus.core.entity.tables.Member;
 import io.vilya.eurus.core.entity.tables.records.AccountRecord;
 
 /**
@@ -19,6 +21,10 @@ public class AccountMapper extends AbstractMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountMapper.class);
     
     public int save(AccountRecord record) {
+        Date now = now();
+        record.setCreateTime(now);
+        record.setUpdateTime(now);
+        
         return create
                 .insertInto(Account.ACCOUNT)
                 .set(record)
@@ -33,9 +39,33 @@ public class AccountMapper extends AbstractMapper {
     }
     
     public int update(AccountRecord record) {
-        return create
-                .update(Account.ACCOUNT)
-                .set(record)
+        if (record.getId() == null) {
+            return -1;
+        }
+        
+        UpdateSetMoreStep<AccountRecord> executer = create.update(Account.ACCOUNT)
+                .set(Account.ACCOUNT.ID, record.getId());
+        
+        if (record.getAccUsername() != null) {
+            executer.set(Account.ACCOUNT.ACC_USERNAME, record.getAccUsername());
+        }
+        
+        if (record.getAccPassword() != null) {
+            executer.set(Account.ACCOUNT.ACC_PASSWORD, record.getAccPassword());
+        }
+        
+        if (record.getToken() != null) {
+            executer.set(Account.ACCOUNT.TOKEN, record.getToken());
+        }
+        
+        if (record.getIsDeleted() != null) {
+            executer.set(Account.ACCOUNT.IS_DELETED, record.getIsDeleted());
+        }
+        
+        executer.set(Account.ACCOUNT.UPDATE_TIME, now());
+        
+        return executer
+                .where(Account.ACCOUNT.ID.eq(record.getId()))
                 .execute();
     }
 
@@ -52,6 +82,10 @@ public class AccountMapper extends AbstractMapper {
                 .where(Account.ACCOUNT.ID.eq(id))
                 .and(Account.ACCOUNT.IS_DELETED.eq(false))
                 .fetchOne();
+    }
+    
+    private Date now() {
+        return new Date(System.currentTimeMillis());
     }
  
 }

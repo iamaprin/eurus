@@ -3,6 +3,9 @@ package io.vilya.eurus.core.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.PathParam;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -12,19 +15,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @SuppressWarnings("serial")
 public class AccountResp implements Serializable{
-    
+    @FormParam("id")
     private Integer id;
     
+    @FormParam("username")
     private String accUsername;
     
+    @FormParam("password")
     private String accPassword;
     
+    @FormParam("token")
     private String token;
     
     private Date createTime;
     
     private Date updateTime;
     
+    @FormParam("isDeleted")
     private Boolean isDeleted;
 
     /**

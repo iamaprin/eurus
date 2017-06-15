@@ -12,7 +12,9 @@ public enum ResultCode {
     
     ERROR(1000, Status.INTERNAL_SERVER_ERROR),
     
-    RECORD_NOT_FOUND(1001, Status.NOT_FOUND);
+    RECORD_NOT_FOUND(1101, Status.NOT_FOUND),
+    
+    PARAM_ERROR(1201, Status.BAD_REQUEST);
     
     private int value;
     private Status httpStatusCode;
