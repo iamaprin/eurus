@@ -1,9 +1,8 @@
 package io.vilya.eurus.core.dao;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
+import org.jooq.InsertSetStep;
 import org.jooq.UpdateSetMoreStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +20,26 @@ public class AccountMapper extends AbstractMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountMapper.class);
     
     public int save(AccountRecord record) {
-        Date now = now();
-        record.setCreateTime(now);
-        record.setUpdateTime(now);
         
-        return create
-                .insertInto(Account.ACCOUNT)
-                .set(record)
+        InsertSetStep<AccountRecord> executer = create
+                .insertInto(Account.ACCOUNT);
+        
+        if (record.getAccUsername() != null) {
+            executer.set(Account.ACCOUNT.ACC_USERNAME, record.getAccUsername());
+        }
+        
+        if (record.getAccPassword() != null) {
+            executer.set(Account.ACCOUNT.ACC_PASSWORD, record.getToken());
+        }
+        
+        if (record.getToken() != null) {
+            executer.set(Account.ACCOUNT.TOKEN, record.getToken());
+        }
+        
+        return executer
+                .set(Account.ACCOUNT.CREATE_TIME, now())
+                .set(Account.ACCOUNT.UPDATE_TIME, now())
+                .set(Account.ACCOUNT.IS_DELETED, false)
                 .execute();
     }
     
@@ -84,8 +96,6 @@ public class AccountMapper extends AbstractMapper {
                 .fetchOne();
     }
     
-    private Date now() {
-        return new Date(System.currentTimeMillis());
-    }
+
  
 }

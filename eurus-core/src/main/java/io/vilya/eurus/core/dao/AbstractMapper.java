@@ -1,5 +1,7 @@
 package io.vilya.eurus.core.dao;
 
+import java.sql.Date;
+
 import org.jooq.DSLContext;
 
 import io.vilya.eurus.core.manager.DBManager;
@@ -21,5 +23,9 @@ public abstract class AbstractMapper {
     private void init() {
         IDBManager dbManager = (IDBManager)Managers.INSTANCE.getInstance(DBManager.class);
         create = dbManager.getCreate();
+    }
+    
+    protected Date now() {
+        return new Date(System.currentTimeMillis());
     }
 }
